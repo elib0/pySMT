@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block titlepoll %}Bienvenido a Encuestas con django{% endblock titlepoll %}</title>
+	{% block styles %}{% endblock styles %}
+</head>
+<body>
+{% if latest_poll_list %}
+    <ul>
+    {% for poll in latest_poll_list %}
+        <li><a href="{% url 'results' poll.id %}">{{ poll.question }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+</body>
+</html>
