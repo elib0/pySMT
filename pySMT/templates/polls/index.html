@@ -2,18 +2,28 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>{% block titlepoll %}Bienvenido a Encuestas con django{% endblock titlepoll %}</title>
+    {% comment %}Bloque para el titulo de la pagina{% endcomment %}
+	<title>{% block titlehtml %}Bienvenido a Encuestas con django{% endblock titlehtml %}</title>
+    {% comment %}bloque de css extra{% endcomment %}
 	{% block styles %}{% endblock styles %}
 </head>
 <body>
+{% comment %}Bloque de contenido principal{% endcomment %}
+{% block content %}
 {% if latest_poll_list %}
+    <h1>Hacer una de nuestras encuestas</h1>
     <ul>
     {% for poll in latest_poll_list %}
-        <li><a href="{% url 'results' poll.id %}">{{ poll.question }}</a></li>
+        <li><a href="{% url 'detail' poll.id %}">{{ poll.question }}</a> - Votos({{ poll.choice_set.count }})</li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No polls are available.</p>
-{% endif %}
+{% endif %}    
+{% endblock content %}
+
+{% comment %}Bloque de javascript{% endcomment %}
+{% block js %}    
+{% endblock js %}
 </body>
 </html>

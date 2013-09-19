@@ -1,5 +1,9 @@
 # Django settings for pySMT project.
 
+import os
+#Path absoluto del projecto
+PROJECTPATH = os.path.dirname(os.path.abspath(__file__))
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -111,7 +115,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    'C:/Users/Elibo/Desktop/pySMT/pySMT/templates',
+    os.path.join(PROJECTPATH, 'templates'),
 )
 
 INSTALLED_APPS = (
