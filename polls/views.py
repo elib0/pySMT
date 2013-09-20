@@ -13,14 +13,9 @@ def detail(request, poll_id):
     return render(request, 'polls/detail.html', {'poll': poll})
 
 def results(request, poll_id):
-    num_votes = 0
     p = Poll.objects.get(pk=poll_id)
-
-    for choice in p.choice_set.all():
-        # num_votes += choice.votes
-        p = Poll.objects.get(pk=poll_id);
-        num_votes = p.get_vote_count();
-    return HttpResponse("You're looking at the results of poll %s votes(%d)." % (poll_id, num_votes))
+    context = {'poll': p}
+    return render(request, 'polls/result.html', context)
 
 def vote(request, poll_id):
     p = Poll.objects.get(pk=poll_id)
