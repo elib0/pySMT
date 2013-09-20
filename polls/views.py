@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from polls.models import Poll,Choice
+from django.utils import simplejson
 # Create your views here.
 
 def index(request):
@@ -18,10 +19,19 @@ def results(request, poll_id):
     return render(request, 'polls/result.html', context)
 
 def vote(request, poll_id):
-    p = Poll.objects.get(pk=poll_id)
-    c = p.choice_set.get(pk=request.POST['choice'])
-    c.votes += 1
-    c.save()
-    # json = simplejson.dumps(msg)
-    # return HttpResponse(json, mimetype='application/json')
-    return redirect('results', poll_id)
+    result = {'success': -1, 'message': 'Error desconocido'}
+    if request.is_ajax():
+        p = Poll.objects.get(pk=poll_id)
+        c = p.choice_set.get(pk=request.POST['choice'])
+        c.votes += 1
+        try:
+            c.save()
+            result['success'] = 1
+            result['message'] = 'Su voto a sido registrado'
+        except:
+            result['success'] = 0
+            result['message'] = 'Su voto no a sido registrado'
+
+    json = simplejson.dumps(result)
+    return HttpResponse(json, mimetype='application/json')
+    # return redirect('results', poll_id)
