@@ -1,0 +1,23 @@
+{% extends "polls/index.html" %}
+
+{% block titlehtml %}Detalles de la encuesta{% endblock titlehtml %}
+
+{% block content %}
+
+{% comment %}Mensaje de error en caso de que exista{% endcomment %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% if poll %}
+	<h2>{{ poll.question }}</h2>
+	<ul>
+		{% for choice in poll.choice_set.all %}
+		<li class="bar{{ forloop.counter }}">{{ choice.choice_text }} - Votos({{ choice.votes }})</li>
+		{% endfor %}	
+	</ul>
+{% else %}
+	<h2 class="alert">Error en los resultados!</h2>
+{% endif %}
+
+<a href="{% url 'index' %}">Volver atras</a>
+
+{% endblock content %}
