@@ -4,8 +4,10 @@
 	<meta charset="UTF-8">
     {% comment %}Bloque para el titulo de la pagina{% endcomment %}
 	<title>{% block titlehtml %}Bienvenido a Encuestas con django{% endblock titlehtml %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
     {% comment %}bloque de css extra{% endcomment %}
-	{% block styles %}{% endblock styles %}
+	{% block extracss %}{% endblock extracss %}
 </head>
 <body>
 {% comment %}Bloque de contenido principal{% endcomment %}
@@ -14,7 +16,7 @@
     <h1>Hacer una de nuestras encuestas</h1>
     <ul>
     {% for poll in latest_poll_list %}
-        <li><a href="{% url 'detail' poll.id %}">{{ poll.question }}</a> - Votos({{ poll.choice_set.count }})</li>
+        <li><a href="{% url 'detail' poll.id %}">{{ poll.question }}</a> - Votos({{ poll.get_vote_count }})</li>
     {% endfor %}
     </ul>
 {% else %}

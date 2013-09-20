@@ -10,6 +10,13 @@ class Poll(models.Model):
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
+    def get_vote_count(self):
+        total = 0;
+        votes = self.choice_set.all()
+        for v in votes:
+            total += v.votes
+        return total
+            
     question = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
