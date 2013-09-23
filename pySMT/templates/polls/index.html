@@ -11,8 +11,7 @@
         <meta name="viewport" content="width=device-width">
         {% load staticfiles %}
         <link rel="stylesheet" href="{% static "css/common/normalize.css" %}">
-        <link rel="stylesheet" href="{% static "css/scss/style_scss.css" %}">
-        <link rel="stylesheet" href="{% static "css/scss/style_scss.css" %}">
+        <link rel="stylesheet" href="{% static "css/styl/style_styl.css" %}">
         <!--[if lt IE 9]><script src="{% static "js/vendor/selectivizr-1.0.2.min.js" %}"></script><![endif]-->
         <script src="{% static "js/vendor/modernizr-2.6.2-respond-1.1.0.min.js" %}"></script>
     </head>
@@ -20,7 +19,7 @@
         <!--[if lt IE 9]>
             <div class="chromeframe"><p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true" target="_blank">activate Google Chrome Frame</a> to improve your experience.</p></div>
         <![endif]-->
-        
+        <div class="content">
         {% block content %}
         {% if latest_poll_list %}
             <h1>Hacer una de nuestras encuestas</h1>
@@ -33,6 +32,7 @@
             <p>No polls are available.</p>
         {% endif %}    
         {% endblock content %}
+        </div>
         
         <!--[if lt IE 9]>
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -43,7 +43,6 @@
             <script>window.jQuery || document.write('<script src="{% static "js/vendor/jquery-2.0.0.min.js" %}"><\/script>')</script>
         <!--<![endif]-->
         <script src="{% static "js/vendor/jquery.placeholder.min.js" %}"></script>
-        {% block js %}    
         <script>
             $(function(){
                 $('input, textarea').placeholder();
@@ -52,6 +51,7 @@
                 });
             });
         </script>
+        {% block js %}    
         {% endblock js %}
     </body>
 </html>
