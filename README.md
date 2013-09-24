@@ -10,4 +10,4 @@ Requerimientos:
 
 Instrucciones:
 ---------------
-Para compilar CSS usamos el precompilador Stylus, Puedes usar la stylus "-u nib -w -c" en lainea de comandos en la carpeta "/static/css/styl" para compilar on the fly el CSS.
+Para compilar CSS usamos el precompilador Stylus, Puedes usar la "stylus -u nib -w -c" en lainea de comandos en la carpeta "/static/css/styl" para compilar on the fly el CSS.

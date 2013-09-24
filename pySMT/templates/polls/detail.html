@@ -12,21 +12,24 @@
 	<form id="frmVotar" action="{% url 'vote' poll.id %}" method="POST">
 	{% csrf_token %}
 		{% for choice in poll.choice_set.all %}
-		<input type="radio" id="choice{{ choice.id }}" name="choice" value="{{ choice.id }}">
-		<label for="choice{{ choice.id }}">{{ choice.choice_text }}</label>
+		<input type="radio" id="choice{{ choice.id }}" name="choice" value="{{ choice.id }}" {% ifequal forloop.counter 1 %}checked="true"{% endifequal %}>
+		<label for="choice{{ choice.id }}">{{ choice.choice_text }}</label><br>
 		{% endfor %}
 		<input id="btnVotar" type="submit" value="Votar">
+		<input id="btnVolver" type="button" value="Volver">
 	</form>
 {% else %}
 	<h2 class="alert">No hay datos</h2>
 {% endif %}
-
-<a href="{% url 'index' %}">Volver atras</a>
-
 {% endblock content %}
 
 {% block js %}   
 <script>
+	$('#btnVolver').click(function(){
+		window.history.back();
+	});
+
+	//Envia voto por ajax
 	$('#frmVotar').submit(function(){
 		var form = this;
 		$.ajax({
@@ -46,8 +49,6 @@
 		.fail(function() {
 			console.log("error");
 		});
-		
-
 		return false;
 	});
 </script>
