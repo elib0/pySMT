@@ -4,12 +4,13 @@
 	Entrar
 {% endblock titlehtml %}
 
+{% block systemmessage %}
+{% if msj %}
+	<span>{{ msj }}</span>
+{% endif %}	
+{% endblock systemmessage %}
+
 {% block content %}
-	<div class="msj-login">
-	{% if msj %}
-		{{ msj }}
-	{% endif %}
-	</div>
 	<form action="{% url 'users:login' %}" method="POST">
 	{% csrf_token %}
 		<h1>Entrar al sistema de </h1>

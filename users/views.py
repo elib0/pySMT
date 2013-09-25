@@ -6,8 +6,7 @@ from django.utils import simplejson
 
 
 def register(request):
-    context = 'Esto es la pagina de registro'
-    return render(request, 'users/register.html', {'context': context})
+    return render(request, 'users/register.html')
 
 
 def save(request):
@@ -27,12 +26,13 @@ def save(request):
 
 
 def loginuser(request):
-    msj = 'Error Desconocido'
+    msj = ''
     if request.method == 'POST':
         post = request.POST
         u = authenticate(username=post['name'], password=post['pass'])
         if u is not None:
             if u.is_active:
+                msj = 'Logueado correctamente'
                 login(request, u)
             else:
                 msj = 'lo sentimos este usuario no se encuntra disponible'

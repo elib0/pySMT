@@ -2,6 +2,12 @@
 
 {% block titlehtml %}Detalles de la encuesta{% endblock titlehtml %}
 
+{% block systemmessage %}
+{% if msj %}
+	{{ msj }}
+{% endif %}	
+{% endblock systemmessage %}
+
 {% block content %}
 <div class="result-block">
 {% comment %}Mensaje de error en caso de que exista{% endcomment %}

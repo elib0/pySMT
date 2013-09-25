@@ -1,6 +1,11 @@
 {% extends "index.html" %}
-
 {% block titlehtml %}Registrar usuario{% endblock titlehtml %}
+
+{% block systemmessage %}
+{% if msj %}
+	{{ msj }}
+{% endif %}	
+{% endblock systemmessage %}
 
 {% block content %}
 	<h1>Registro de nuevo usuario</h1>
