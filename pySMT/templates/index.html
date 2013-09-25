@@ -37,6 +37,7 @@
         <footer>
             {% block footer %}
                 <a href=" {% url 'users:register' %} ">Eres nuevo usuario?</a>
+                <a href="{% url 'users:login' %}">¿Ya eres usuario?</a>
             {% endblock footer %}
         </footer>
         <!--[if lt IE 9]>

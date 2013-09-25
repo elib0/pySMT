@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+
+{% block titlehtml %}
+	Entrar
+{% endblock titlehtml %}
+
+{% block content %}
+	<div class="msj-login">
+	{% if msj %}
+		{{ msj }}
+	{% endif %}
+	</div>
+	<form action="{% url 'users:login' %}" method="POST">
+	{% csrf_token %}
+		<h1>Entrar al sistema de </h1>
+		<input type="text" id="name" name="name"><label for="name">Nombre</label><br>
+		<input type="password" id="pass" name="pass"><label for="pass">Contraseña</label><br>
+		<input type="button" id="btnVolver" value="Cancelar">
+		<input type="submit" value="Login">
+	</form>
+{% endblock content %}
+
+{% block footer %}
+	
+{% endblock footer %}
+
+{% block js %}
+<script>
+	$('#btnVolver').click(function(){
+		window.location = '{% url 'index' %}';
+	});
+</script>
+{% endblock js %}

@@ -30,7 +30,7 @@
 		}).done(function(data) {
 			if (data.success == 1) {
 				alert(data.message);
-				window.location = '{% url 'index' %}';
+				window.location = '{% url 'users:login' %}';
 			}
 		}).fail(function() {
 			console.log("error");
