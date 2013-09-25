@@ -36,8 +36,7 @@
 			url: form.action,
 			type: form.method,
 			data: $(form).serialize(),
-		})
-		.done(function(data) {
+		}).done(function(data) {
 			if (data.success == 1) {
 				alert(data.message);
 				console.log('{% url "polls:results" poll.id %}');
@@ -45,8 +44,7 @@
 			}else{
 
 			};
-		})
-		.fail(function() {
+		}).fail(function() {
 			console.log("error");
 		});
 		return false;
