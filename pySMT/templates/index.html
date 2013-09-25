@@ -25,7 +25,7 @@
             <h1>Hacer una de nuestras encuestas</h1>
             <ul>
             {% for poll in latest_poll_list %}
-                <li><a href="{% url 'detail' poll.id %}">{{ poll.question }}</a> - Votos({{ poll.get_vote_count }})</li>
+                <li><a href="{% url 'polls:detail' poll.id %}">{{ poll.question }}</a> - Votos({{ poll.get_vote_count }})</li>
             {% endfor %}
             </ul>
         {% else %}
@@ -34,6 +34,11 @@
         {% endblock content %}
         </div>
         
+        <footer>
+            {% block footer %}
+                <a href=" {% url 'users:register' %} ">Eres nuevo usuario?</a>
+            {% endblock footer %}
+        </footer>
         <!--[if lt IE 9]>
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
             <script>window.jQuery || document.write('<script src="{% static "js/vendor/jquery-1.9.1.min.js" %}"><\/script>')</script>

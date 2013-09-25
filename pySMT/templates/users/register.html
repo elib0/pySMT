@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block titlehtml %}Registrar usuario{% endblock titlehtml %}
+
+{% block content %}
+	<form action="#" id="frmRegister" method="POST">
+	{% csrf_token %}
+		<input type="text" name="name">
+		<input type="email" name="email">
+		<input type="password" name="password">
+		<input type="submit" value="registrar">
+		<input id="btnCancelar" type="button" value="Cancelar">
+	</form>
+{% endblock content %}
+
+{% block js %}
+<script>
+	$('#btnCancelar').click(function(){
+		window.location = '{% url 'index' %}';
+	});
+</script>
+{% endblock js %}
+
+{% block footer %}
+	
+{% endblock footer %}

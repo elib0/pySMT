@@ -1,4 +1,4 @@
-{% extends "polls/index.html" %}
+{% extends "index.html" %}
 
 {% block titlehtml %}Detalles de la encuesta{% endblock titlehtml %}
 
@@ -9,7 +9,7 @@
 
 {% if poll %}
 	<h2>{{ poll.question }}</h2>
-	<form id="frmVotar" action="{% url 'vote' poll.id %}" method="POST">
+	<form id="frmVotar" action="{% url 'polls:vote' poll.id %}" method="POST">
 	{% csrf_token %}
 		{% for choice in poll.choice_set.all %}
 		<input type="radio" id="choice{{ choice.id }}" name="choice" value="{{ choice.id }}" {% ifequal forloop.counter 1 %}checked="true"{% endifequal %}>
@@ -40,8 +40,8 @@
 		.done(function(data) {
 			if (data.success == 1) {
 				alert(data.message);
-				console.log('{% url "results" poll.id %}');
-				window.location = '{% url "results" poll.id %}';				
+				console.log('{% url "polls:results" poll.id %}');
+				window.location = '{% url 'polls:results' poll.id %}';			
 			}else{
 
 			};

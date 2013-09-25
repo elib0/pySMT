@@ -17,7 +17,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index, name='index'),
 
-    url(r'^(?P<poll_id>\d+)/$', views.detail, name='detail'),
-    url(r'^(?P<poll_id>\d+)/vote/$', views.vote, name='vote'),
-    url(r'^(?P<poll_id>\d+)/results/$', views.results, name='results'),
+    url(r'^polls/', include('polls.urls', namespace="polls")),
+    url(r'^users/', include('users.urls', namespace="users")),
 )
