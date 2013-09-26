@@ -58,5 +58,6 @@ def loginuser(request):
 
 
 def logoutuser(request):
-    logout(request)
+    if request.user.is_authenticated():
+        logout(request)
     return redirect('index')
