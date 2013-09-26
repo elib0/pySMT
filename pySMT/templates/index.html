@@ -28,7 +28,7 @@
 
         <span>Bienvenido:
         {% if user.is_authenticated  %}
-            {{ user.username }}
+            <a href="{% url 'users:profile' user.id %}">{{ user.username }}</a>
         {% else %}
             Anonimo
         {% endif %}

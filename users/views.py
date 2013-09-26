@@ -25,6 +25,11 @@ def save(request):
     return HttpResponse(json, mimetype='application/json')
 
 
+def profile(request, user_id):
+    u = User.objects.get(pk=user_id)
+    return HttpResponse("Perfil de %s." % u.username)
+
+
 def loginuser(request):
     msj = ''
     if request.method == 'POST':
