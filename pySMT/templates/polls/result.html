@@ -20,6 +20,7 @@
 		<li class="bar{{ forloop.counter }}">{{ choice.choice_text }} - Votos({{ choice.votes }})</li>
 		{% endfor %}	
 	</ul>
+	<span>Votos totales: {{ poll.get_vote_count }}</span><br>
 {% else %}
 	<h2 class="alert">Error en los resultados!</h2>
 {% endif %}

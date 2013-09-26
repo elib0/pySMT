@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block titlehtml %}
+	Perfil de {{ user.username }}
+{% endblock titlehtml %}
+
+{% block content %}
+	{% if user %}
+	<form action="#" method="POST">
+	<h1>Tu perfil:</h1>
+	<label for="username">Apodo:</label><input type="text" name="username" id="username" value="{{ user.username }}" disabled="true"><br> 
+	<label for="">Nombre:</label><input type="text" name="name" id="name"><br>
+	<label for="">Apellido:</label><br>
+	<input type="submit" value="Guardar">
+	<input type="button" id="btnVolver" name="btnVolver" value="Volver">
+	</form>
+	{% endif %}
+{% endblock content %}
+
+{% block js %}
+<script>
+	$('#btnVolver').click(function(event) {
+		window.history.back();
+	});
+</script>	
+{% endblock js %}

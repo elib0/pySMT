@@ -27,7 +27,8 @@ def save(request):
 
 def profile(request, user_id):
     u = User.objects.get(pk=user_id)
-    return HttpResponse("Perfil de %s." % u.username)
+    # return HttpResponse("Perfil de %s." % u.username)
+    return render(request, 'users/profile.html', {'user': u})
 
 
 def loginuser(request):
