@@ -17,7 +17,12 @@
 	<h2>{{ poll.question }}</h2>
 	<ul>
 		{% for choice in poll.choice_set.all %}
-		<li class="bar{{ forloop.counter }}">{{ choice.choice_text }} - Votos({{ choice.votes }})</li>
+		<li>
+			{{ choice.choice_text }} - Votos({{ choice.votes }})
+			<span class="bar{{ forloop.counter }}" style="width: {{ choice.get_percentage_votes }}px">
+			&nbsp;
+			</span>
+		</li>
 		{% endfor %}	
 	</ul>
 	<span>Votos totales: {{ poll.get_vote_count }}</span><br>
