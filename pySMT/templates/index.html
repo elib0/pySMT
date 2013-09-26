@@ -51,7 +51,7 @@
                     <a href=" {% url 'users:register' %} ">Eres nuevo usuario?</a>
                     <a href="{% url 'users:login' %}">¿Ya eres usuario?</a>
                 {% else %}
-                    <a href="#">Salir</a>
+                    <a href="{% url 'users:logout' %}">Salir</a>
                 {% endif %}
             {% endblock footer %}
         </footer>

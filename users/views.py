@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.utils import simplejson
 
 
@@ -43,3 +43,7 @@ def loginuser(request):
             return redirect('users/login.html', {'msj': msj})
     else:
         return render(request, 'users/login.html', {'msj': msj})
+
+def logoutuser(request):
+    logout(request)
+    return redirect('index')
