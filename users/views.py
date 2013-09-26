@@ -40,6 +40,6 @@ def loginuser(request):
             return redirect('/')
         else:
             msj = 'Usuario invalido'
-            redirect('users/login.html', {'msj': msj})
+            return redirect('users/login.html', {'msj': msj})
     else:
         return render(request, 'users/login.html', {'msj': msj})

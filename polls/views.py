@@ -7,6 +7,8 @@ from django.utils import simplejson
 
 def index(request):
     latest_poll_list = Poll.objects.order_by('-pub_date')[:5]
+    # if request.user.is_authenticated():
+    #     user = request.user.get_username()
     context = {'latest_poll_list': latest_poll_list}
     return render(request, 'index.html', context)
 

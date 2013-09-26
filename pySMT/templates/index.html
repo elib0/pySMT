@@ -25,6 +25,10 @@
             {{ msj }}
         {% endif %}
         {% endblock systemmessage %}
+
+        {% if user %}
+            <span>Bienvenido: {{ user }}</span>
+        {% endif %}
         </div>
         <div class="content">
         {% block content %}
@@ -43,8 +47,12 @@
         
         <footer>
             {% block footer %}
-                <a href=" {% url 'users:register' %} ">Eres nuevo usuario?</a>
-                <a href="{% url 'users:login' %}">¿Ya eres usuario?</a>
+                {% if not user.is_authenticated %}
+                    <a href=" {% url 'users:register' %} ">Eres nuevo usuario?</a>
+                    <a href="{% url 'users:login' %}">¿Ya eres usuario?</a>
+                {% else %}
+                    <a href="#">Salir</a>
+                {% endif %}
             {% endblock footer %}
         </footer>
         <!--[if lt IE 9]>
