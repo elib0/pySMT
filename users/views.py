@@ -11,24 +11,30 @@ def register(request):
 
 def save(request):
     result = {'success': -1, 'message': 'Error desconocido'}
-    if request.is_ajax():
-        post = request.POST
-        u = User.objects.create_user(post['name'], post['email'], post['pass'])
-        try:
-            u.save()
-            result['success'] = 1
-            result['message'] = 'Usuario registrado'
-        except:
-            result['success'] = 0
-            result['message'] = 'Usuario no registrado'
-    json = simplejson.dumps(result)
-    return HttpResponse(json, mimetype='application/json')
+    if request.user.is_authenticated():
+        if request.is_ajax():
+            post = request.POST
+            u = User.objects.create_user(post['name'], post['email'], post['pass'])
+            try:
+                u.save()
+                result['success'] = 1
+                result['message'] = 'Usuario registrado'
+            except:
+                result['success'] = 0
+                result['message'] = 'Usuario no registrado'
+        json = simplejson.dumps(result)
+        return HttpResponse(json, mimetype='application/json')
+    else:
+        return redirect('/')
 
 
 def profile(request, user_id):
-    u = User.objects.get(pk=user_id)
-    # return HttpResponse("Perfil de %s." % u.username)
-    return render(request, 'users/profile.html', {'user': u})
+    if request.user.is_authenticated():
+        u = User.objects.get(pk=user_id)
+        # return HttpResponse("Perfil de %s." % u.username)
+        return render(request, 'users/profile.html', {'user': u})
+    else:
+        return redirect('/')
 
 
 def loginuser(request):

@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from polls.models import Poll
 from django.utils import simplejson
 # Create your views here.
@@ -7,21 +7,25 @@ from django.utils import simplejson
 
 def index(request):
     latest_poll_list = Poll.objects.order_by('-pub_date')[:5]
-    # if request.user.is_authenticated():
-    #     user = request.user.get_username()
     context = {'latest_poll_list': latest_poll_list}
     return render(request, 'index.html', context)
 
 
 def detail(request, poll_id):
-    poll = get_object_or_404(Poll, pk=poll_id)
-    return render(request, 'polls/detail.html', {'poll': poll})
+    if request.user.is_authenticated():
+        poll = get_object_or_404(Poll, pk=poll_id)
+        return render(request, 'polls/detail.html', {'poll': poll})
+    else:
+        return redirect('/')
 
 
 def results(request, poll_id):
-    p = Poll.objects.get(pk=poll_id)
-    context = {'poll': p}
-    return render(request, 'polls/result.html', context)
+    if request.user.is_authenticated():
+        p = Poll.objects.get(pk=poll_id)
+        context = {'poll': p}
+        return render(request, 'polls/result.html', context)
+    else:
+        return redirect('/')
 
 
 def vote(request, poll_id):
