@@ -26,10 +26,10 @@ class Choice(models.Model):
         return self.choice_text
 
     def get_percentage_votes(self, showDecimals=False):
-        percentage = round((float(self.votes)/float(self.poll.get_vote_count()))*100, 2)
+        p = round((float(self.votes)/float(self.poll.get_vote_count()))*100, 2)
         if not showDecimals:
-            percentage = int(percentage)
-        return percentage
+            p = int(p)
+        return p
 
     poll = models.ForeignKey(Poll)
     choice_text = models.CharField(max_length=200)
