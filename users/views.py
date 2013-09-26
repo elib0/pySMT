@@ -20,7 +20,7 @@ def save(request):
             result['message'] = 'Usuario registrado'
         except:
             result['success'] = 0
-            result['message'] = 'Su voto no a sido registrado'
+            result['message'] = 'Usuario no registrado'
     json = simplejson.dumps(result)
     return HttpResponse(json, mimetype='application/json')
 
@@ -43,6 +43,7 @@ def loginuser(request):
             return redirect('users/login.html', {'msj': msj})
     else:
         return render(request, 'users/login.html', {'msj': msj})
+
 
 def logoutuser(request):
     logout(request)

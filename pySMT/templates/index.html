@@ -21,14 +21,19 @@
         <![endif]-->
         <div class="system-message">
         {% block systemmessage %}
-        {% if msj %}
-            {{ msj }}
-        {% endif %}
+            {% if msj %}
+                {{ msj }}
+            {% endif %}
         {% endblock systemmessage %}
 
-        {% if user %}
-            <span>Bienvenido: {{ user }}</span>
+        <span>Bienvenido:
+        {% if user.is_authenticated  %}
+            {{ user.username }}
+        {% else %}
+            Anonimo
         {% endif %}
+        </span>
+            
         </div>
         <div class="content">
         {% block content %}
