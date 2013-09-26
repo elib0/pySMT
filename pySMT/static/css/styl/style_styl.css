@@ -10,7 +10,10 @@ img,video,audio,embed,object,input,iframe{max-width:100%}
 .chromeframe p:before,.chromeframe p:after{content:"";display:table}
 .chromeframe p:after{clear:both}
 .chromeframe p a{color:#3a95fb}
-.content{zoom:1;max-width:980px;float:none !important;display:block;margin-right:auto !important;margin-left:auto !important;*margin-right:auto !important;*margin-left:auto !important}
+.system-message{background-color:#3b5998;border-bottom:solid 1px #1d2b49;-webkit-box-shadow:0 1px 2px #6c89c6;box-shadow:0 1px 2px #6c89c6;height:2em;padding:.5em;color:#fff}
+.welcome-message span{font-weight:bold}
+.welcome-message span a,.welcome-message span a:hover,.welcome-message span a:visited,.welcome-message span a:active{color:#fff;font-weight:bold}
+.content{zoom:1;max-width:1000px;float:none !important;display:block;margin-right:auto !important;margin-left:auto !important;*margin-right:auto !important;*margin-left:auto !important}
 .content:before,.content:after{content:"";display:table}
 .content:after{clear:both}
 .result-block ul{list-style:none;}
@@ -19,8 +22,11 @@ img,video,audio,embed,object,input,iframe{max-width:100%}
 .result-block ul li.bar2{background-color:#ff0080}
 .result-block ul li.bar3{background-color:#0f0}
 .result-block ul li.bar4{background-color:#ff8000}
-footer{zoom:1;max-width:980px;float:none !important;display:block;margin-right:auto !important;margin-left:auto !important;*margin-right:auto !important;*margin-left:auto !important}
+footer{zoom:1;max-width:1000px;float:none !important;display:block;margin-right:auto !important;margin-left:auto !important;*margin-right:auto !important;*margin-left:auto !important;}
 footer:before,footer:after{content:"";display:table}
 footer:after{clear:both}
+footer a{padding:9px 30px;display:inline-block;background:#3b5998;-webkit-border-radius:5px;border-radius:5px;cursor:pointer;text-align:center;text-decoration:none;-webkit-transition:200ms ease all;-moz-transition:200ms ease all;-o-transition:200ms ease all;-ms-transition:200ms ease all;transition:200ms ease all;-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,0.2);box-shadow:inset 0 1px 0 rgba(255,255,255,0.2);border:1px solid #2c4a87;color:#dfe5f2;text-shadow:0 1px 0 #1f3b74;border:0;background:#3b5998;text-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
+footer a:hover{opacity:.9;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";filter:alpha(opacity=90);color:#e9eef7}
+footer a:active{opacity:1;-ms-filter:none;filter:none;position:relative;top:1px}
 @media all and (max-width: 705px) {
 }
