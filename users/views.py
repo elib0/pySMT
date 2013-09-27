@@ -1,20 +1,16 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.utils import simplejson
 
 
 def register(request):
-    return render(request, 'users/register.html')
-
-
-def save(request):
-    result = {'success': -1, 'message': 'Error desconocido'}
-    if request.user.is_authenticated():
+    if request.method == 'POST':
+        result = {'success': -1, 'message': 'Error desconocido'}
         if request.is_ajax():
-            post = request.POST
-            u = User.objects.create_user(post['name'], post['email'], post['pass'])
+            p = request.POST
+            u = User.objects.create_user(p['name'], p['email'], p['pass'])
             try:
                 u.save()
                 result['success'] = 1
@@ -25,14 +21,34 @@ def save(request):
         json = simplejson.dumps(result)
         return HttpResponse(json, mimetype='application/json')
     else:
-        return redirect('/')
+        return render(request, 'users/register.html')
 
 
 def profile(request, user_id):
+    #Solo si el usuario esta autenticado
     if request.user.is_authenticated():
-        u = User.objects.get(pk=user_id)
-        # return HttpResponse("Perfil de %s." % u.username)
-        return render(request, 'users/profile.html', {'user': u})
+        #SI es llamada por un form y peticion ajax guardo datos de profile
+        if request.is_ajax() and request.method == 'POST':
+            result = {'success': 0, 'message': 'No se han podido guardar los cambios'}
+            u = request.user
+            u.first_name = request.POST['name']
+            u.last_name = request.POST['lastname']
+            try:
+                u.save()
+                result['success'] = 1
+                result['message'] = 'Datos guardados'
+            except:
+                pass
+            json = simplejson.dumps(result)
+            return HttpResponse(json, mimetype='application/json')
+        #Si no es de un form muestro form de profile
+        else:
+            if request.user.pk == int(user_id):
+                u = request.user
+                return render(request, 'users/profile.html', {'user': u})
+            else:
+                u = get_object_or_404(User, pk=user_id)
+                return HttpResponse('Perfil externo de: %s' % u.username)
     else:
         return redirect('/')
 

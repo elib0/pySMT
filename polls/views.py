@@ -13,15 +13,15 @@ def index(request):
 
 def detail(request, poll_id):
     if request.user.is_authenticated():
-        poll = get_object_or_404(Poll, pk=poll_id)
-        return render(request, 'polls/detail.html', {'poll': poll})
+        p = get_object_or_404(Poll, pk=poll_id)
+        return render(request, 'polls/detail.html', {'poll': p})
     else:
         return redirect('/')
 
 
 def results(request, poll_id):
     if request.user.is_authenticated():
-        p = Poll.objects.get(pk=poll_id)
+        p = get_object_or_404(Poll, pk=poll_id)
         context = {'poll': p}
         return render(request, 'polls/result.html', context)
     else:
@@ -30,7 +30,7 @@ def results(request, poll_id):
 
 def vote(request, poll_id):
     result = {'success': -1, 'message': 'Error desconocido'}
-    if request.is_ajax():
+    if request.is_ajax() and request.method == 'POST':
         p = Poll.objects.get(pk=poll_id)
         c = p.choice_set.get(pk=request.POST['choice'])
         c.votes += 1

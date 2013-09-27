@@ -7,8 +7,8 @@
 {% comment %}Mensaje de error en caso de que exista{% endcomment %}
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-{% if poll %}
-	<h2>{{ poll.question }}</h2>
+<section class="poll-detail"><h2>{{ poll.question }}</h2>
+	{% if poll %}
 	<form id="frmVotar" action="{% url 'polls:vote' poll.id %}" method="POST">
 	{% csrf_token %}
 		{% for choice in poll.choice_set.all %}
@@ -18,9 +18,10 @@
 		<input id="btnVotar" type="submit" value="Votar">
 		<input id="btnVolver" type="button" value="Volver">
 	</form>
-{% else %}
+	{% else %}
 	<h2 class="alert">No hay datos</h2>
-{% endif %}
+	{% endif %}
+</section>
 {% endblock content %}
 
 {% block js %}   
@@ -37,13 +38,10 @@
 			type: form.method,
 			data: $(form).serialize(),
 		}).done(function(data) {
+			alert(data.message);
 			if (data.success == 1) {
-				alert(data.message);
-				console.log('{% url "polls:results" poll.id %}');
 				window.location = '{% url 'polls:results' poll.id %}';			
-			}else{
-
-			};
+			}
 		}).fail(function() {
 			console.log("error");
 		});

@@ -39,20 +39,22 @@
         </div>
         <div class="content">
         {% block content %}
-        {% if user.is_authenticated %}
-            {% if latest_poll_list %}
-                <h1>Hacer una de nuestras encuestas</h1>
-                <ul>
-                {% for poll in latest_poll_list %}
-                    <li><a href="{% url 'polls:detail' poll.id %}">{{ poll.question }}</a> - Votos({{ poll.get_vote_count }})</li>
-                {% endfor %}
-                </ul>
+            <section class="home">
+            {% if user.is_authenticated %}
+                {% if latest_poll_list %}
+                    <h1>Hacer una de nuestras encuestas</h1>
+                    <ul>
+                    {% for poll in latest_poll_list %}
+                        <li><a href="{% url 'polls:detail' poll.id %}">{{ poll.question }}</a> - Votos({{ poll.get_vote_count }})</li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No polls are available.</p>
+                {% endif %}   
             {% else %}
-                <p>No polls are available.</p>
-            {% endif %}   
-        {% else %}
-            <h3>Para ver las encuentas debes ser usuario registrado, puedes registrate <a href="{% url 'users:register' %}">aqui</a>.</h3>
-        {% endif %} 
+                <h3>Para ver las encuentas debes ser usuario registrado, puedes registrate <a href="{% url 'users:register' %}">aqui</a>.</h3>
+            {% endif %} 
+            </section>
         {% endblock content %}
         </div>
         
@@ -62,7 +64,7 @@
                     <a href=" {% url 'users:register' %} ">¿Eres nuevo usuario?</a>
                     <a href="{% url 'users:login' %}">¿Ya eres usuario?</a>
                 {% else %}
-                    <a href="{% url 'users:logout' %}">Salir</a>
+                    <a href="{% url 'users:logout' %}">Cerrar Sesión</a>
                 {% endif %}
             {% endblock footer %}
         </footer>

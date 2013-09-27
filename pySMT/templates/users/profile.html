@@ -5,22 +5,42 @@
 {% endblock titlehtml %}
 
 {% block content %}
-	{% if user %}
-	<form action="#" method="POST">
-	<h1>Tu perfil:</h1>
-	<label for="username">Apodo:</label><input type="text" name="username" id="username" value="{{ user.username }}" disabled="true"><br> 
-	<label for="">Nombre:</label><input type="text" name="name" id="name"><br>
-	<label for="">Apellido:</label><br>
-	<input type="submit" value="Guardar">
-	<input type="button" id="btnVolver" name="btnVolver" value="Volver">
-	</form>
-	{% endif %}
+	<section class="profile">
+		{% if user %}
+		<h1>Tu perfil:</h1>
+		<form id="frmPerfil" action="{% url 'users:profile' user.id %}" method="POST">{% csrf_token %}
+			<label for="username">Apodo:</label><input type="text" name="username" id="username" value="{{ user.username }}" disabled="true"><br> 
+			<label for="name">Nombre:</label><input type="text" name="name" id="name" value="{{ user.first_name }}"><br>
+			<label for="lastname">Apellido:</label><input type="text" name="lastname" id="lastname" value="{{ user.last_name }}"><br>
+			<label for="email">Correo:</label><input type="email" id="email" name="email" value="{{ user.email }}"><br>
+			<input type="submit" value="Guardar">
+			<input type="button" id="btnVolver" name="btnVolver" value="Volver">
+		</form>
+		{% endif %}
+	</section>
 {% endblock content %}
 
 {% block js %}
 <script>
 	$('#btnVolver').click(function(event) {
 		window.history.back();
+	});
+
+	$('#frmPerfil').submit(function(){
+		var form = this;
+		$.ajax({
+			url: form.action,
+			type: form.method,
+			data: $(form).serialize(),
+		}).done(function(data) {
+			alert(data.message);
+			if (data.success == 0) {
+				window.location.reload()
+			};			
+		}).fail(function() {
+			console.log("error");
+		});
+		return false;
 	});
 </script>	
 {% endblock js %}

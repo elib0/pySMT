@@ -9,8 +9,7 @@
 {% endblock systemmessage %}
 
 {% block content %}
-<div class="result-block">
-{% comment %}Mensaje de error en caso de que exista{% endcomment %}
+<section class="poll-result">
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 {% if poll %}
@@ -29,11 +28,10 @@
 {% else %}
 	<h2 class="alert">Error en los resultados!</h2>
 {% endif %}
-
 <input id="btnVolver" type="button" value="Volver">
-</div>
-
+</section>
 {% endblock content %}
+
 {% block js %}
 <script>
 	$('#btnVolver').click(function(){

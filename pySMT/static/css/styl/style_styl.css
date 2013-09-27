@@ -11,6 +11,7 @@ img,video,audio,embed,object,input,iframe{max-width:100%}
 .chromeframe p:after{clear:both}
 .chromeframe p a{color:#3a95fb}
 footer{margin:1em 0 0 0}
+label{min-width:5.5em;display:inline-block}
 .system-message{background-color:#3b5998;border-bottom:solid 1px #1d2b49;-webkit-box-shadow:0 1px 2px #6c89c6;box-shadow:0 1px 2px #6c89c6;height:2em;padding:.5em;color:#fff}
 .welcome-message span{font-weight:bold}
 .welcome-message span a,.welcome-message span a:hover,.welcome-message span a:visited,.welcome-message span a:active{color:#fff;font-weight:bold}
