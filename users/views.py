@@ -54,17 +54,18 @@ def profile(request, user_id):
         return redirect('/')
 
 
-def follow_user(request, followed_id):
+def follow_user(request):
     result = {'success': -1, 'message': 'Seguir'}
-    if request.is_ajax() and request.method == "POST":
-        u = request.user
-        f = Friendship(u.id, followed_id)
-        try:
-            f.save()
-            result['success'] = 1
-            result['message'] = 'Seguido'
-        except:
-            pass
+    if request.user.is_authenticated():
+        if request.is_ajax() and request.method == "POST":
+            u = request.user
+            f = Friendship(u.id, request.POST[''])
+            try:
+                f.save()
+                result['success'] = 1
+                result['message'] = 'Seguido'
+            except:
+                pass
     json = simplejson.dumps(result)
     return HttpResponse(json, mimetype='application/json')
 
