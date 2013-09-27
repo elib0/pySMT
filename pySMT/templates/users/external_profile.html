@@ -1,0 +1,34 @@
+{% extends "users/profile.html" %}
+
+{% block content %}
+	<section class="profile">
+		{% if user_external %}
+		<a id="btnFollow" href="{% url 'users:follow' user_external.id %}">Seguir</a>
+		<h1>Perfil de:{{ user_external.username }}</h1>
+		<label>Nombre:</label>{{ user_external.first_name }}<br>
+		<label>Apellido:</label>{{ user_external.last_name }}<br>
+		<label>Correo:</label>{{ user_external.email }}<br>
+		<input type="button" id="btnVolver" name="btnVolver" value="Volver">
+		{% endif %}
+	</section>
+{% endblock content %}
+
+{% block js %}
+<script>
+	$('#btnVolver').click(function(event) {
+		window.history.back();
+	});
+
+	$('#btnFollow').click(function(event) {
+		a = this;
+		$.ajax({
+			url: this.href,
+			type: 'POST',
+			dataType: 'json',
+		}).done(function(data) {
+			console.log(data);
+		});
+		return false;
+	});
+</script>	
+{% endblock js %}

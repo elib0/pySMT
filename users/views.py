@@ -3,21 +3,21 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.utils import simplejson
+from users.models import Friendship
 
 
 def register(request):
-    if request.method == 'POST':
+    if request.is_ajax() and request.method == 'POST':
         result = {'success': -1, 'message': 'Error desconocido'}
-        if request.is_ajax():
-            p = request.POST
-            u = User.objects.create_user(p['name'], p['email'], p['pass'])
-            try:
-                u.save()
-                result['success'] = 1
-                result['message'] = 'Usuario registrado'
-            except:
-                result['success'] = 0
-                result['message'] = 'Usuario no registrado'
+        p = request.POST
+        u = User.objects.create_user(p['name'], p['email'], p['pass'])
+        try:
+            u.save()
+            result['success'] = 1
+            result['message'] = 'Usuario registrado'
+        except:
+            result['success'] = 0
+            result['message'] = 'Usuario no registrado'
         json = simplejson.dumps(result)
         return HttpResponse(json, mimetype='application/json')
     else:
@@ -43,14 +43,30 @@ def profile(request, user_id):
             return HttpResponse(json, mimetype='application/json')
         #Si no es de un form muestro form de profile
         else:
+            u = request.user
             if request.user.pk == int(user_id):
-                u = request.user
                 return render(request, 'users/profile.html', {'user': u})
             else:
-                u = get_object_or_404(User, pk=user_id)
-                return HttpResponse('Perfil externo de: %s' % u.username)
+                userexternal = get_object_or_404(User, pk=user_id)
+                context = {'user': u, 'user_external': userexternal}
+                return render(request, 'users/external_profile.html', context)
     else:
         return redirect('/')
+
+
+def follow_user(request, followed_id):
+    result = {'success': -1, 'message': 'Seguir'}
+    if request.is_ajax() and request.method == "POST":
+        u = request.user
+        f = Friendship(u.id, followed_id)
+        try:
+            f.save()
+            result['success'] = 1
+            result['message'] = 'Seguido'
+        except:
+            pass
+    json = simplejson.dumps(result)
+    return HttpResponse(json, mimetype='application/json')
 
 
 def loginuser(request):
