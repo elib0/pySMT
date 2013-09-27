@@ -9,9 +9,8 @@
 {% endblock systemmessage %}
 
 {% block content %}
-<section class="poll-result">
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
+<section class="poll-result">
 {% if poll %}
 	<h2>{{ poll.question }}</h2>
 	<ul>

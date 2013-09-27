@@ -3,12 +3,10 @@
 {% block titlehtml %}Detalles de la encuesta{% endblock titlehtml %}
 
 {% block content %}
-
-{% comment %}Mensaje de error en caso de que exista{% endcomment %}
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
-<section class="poll-detail"><h2>{{ poll.question }}</h2>
+<section class="poll-detail">
 	{% if poll %}
+	<h2>{{ poll.question }}</h2>
 	<form id="frmVotar" action="{% url 'polls:vote' poll.id %}" method="POST">
 	{% csrf_token %}
 		{% for choice in poll.choice_set.all %}
