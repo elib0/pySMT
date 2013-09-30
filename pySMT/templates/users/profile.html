@@ -8,14 +8,20 @@
 	<section class="profile">
 		{% if user %}
 		<h1>Tu perfil:</h1>
-		<form id="frmPerfil" action="{% url 'users:profile' user.id %}" method="POST">{% csrf_token %}
-			<label for="username">Apodo:</label><input type="text" name="username" id="username" value="{{ user.username }}" disabled="true"><br> 
-			<label for="name">Nombre:</label><input type="text" name="name" id="name" value="{{ user.first_name }}"><br>
-			<label for="lastname">Apellido:</label><input type="text" name="lastname" id="lastname" value="{{ user.last_name }}"><br>
-			<label for="email">Correo:</label><input type="email" id="email" name="email" value="{{ user.email }}"><br>
-			<input type="submit" value="Guardar">
-			<input type="button" id="btnVolver" name="btnVolver" value="Volver">
-		</form>
+		<article>
+			<form id="frmPerfil" action="{% url 'users:profile' user.id %}" method="POST">{% csrf_token %}
+				<label for="username">Apodo:</label><input type="text" name="username" id="username" value="{{ user.username }}" disabled="true"><br> 
+				<label for="name">Nombre:</label><input type="text" name="name" id="name" value="{{ user.first_name }}"><br>
+				<label for="lastname">Apellido:</label><input type="text" name="lastname" id="lastname" value="{{ user.last_name }}"><br>
+				<label for="email">Correo:</label><input type="email" id="email" name="email" value="{{ user.email }}"><br>
+				<input type="submit" value="Guardar">
+				<input type="button" id="btnVolver" name="btnVolver" value="Volver">
+			</form>
+		</article>
+		<aside>
+			<h6>Seguidores:</h6>
+			
+		</aside>
 		{% endif %}
 	</section>
 {% endblock content %}

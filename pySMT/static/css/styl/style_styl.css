@@ -25,6 +25,10 @@ label{min-width:5.5em;display:inline-block}
 .poll-result ul li span.bar2{background-color:#ff0080}
 .poll-result ul li span.bar3{background-color:#0f0}
 .poll-result ul li span.bar4{background-color:#ff8000}
+.profile aside,.profile article{zoom:1;float:left;width:48%;margin-left:1%;margin-right:1%;}
+.profile aside:before,.profile article:before,.profile aside:after,.profile article:after{content:"";display:table}
+.profile aside:after,.profile article:after{clear:both}
+.profile aside h6,.profile article h6{margin:0}
 footer{zoom:1;max-width:1000px;float:none !important;display:block;margin-right:auto !important;margin-left:auto !important;*margin-right:auto !important;*margin-left:auto !important;}
 footer:before,footer:after{content:"";display:table}
 footer:after{clear:both}

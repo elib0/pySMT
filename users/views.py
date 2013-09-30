@@ -44,28 +44,32 @@ def profile(request, user_id):
         #Si no es de un form muestro form de profile
         else:
             u = request.user
-            if request.user.pk == int(user_id):
+            if u.pk == int(user_id):
                 return render(request, 'users/profile.html', {'user': u})
             else:
                 userexternal = get_object_or_404(User, pk=user_id)
-                context = {'user': u, 'user_external': userexternal}
+                f = Friendship.objects.filter(follower=u.pk, followed=user_id)[:1]
+                if f:
+                    f = 'Dejar de seguir'
+                else:
+                    f = 'Seguir'
+                context = {'user': u, 'user_external': userexternal, 'follow_status': f}
                 return render(request, 'users/external_profile.html', context)
     else:
         return redirect('/')
 
 
-def follow_user(request):
+def follow_user(request, followed_id):
     result = {'success': -1, 'message': 'Seguir'}
     if request.user.is_authenticated():
         if request.is_ajax() and request.method == "POST":
             u = request.user
-            f = Friendship(u.id, request.POST[''])
-            try:
-                f.save()
+            obj, created = Friendship.objects.get_or_create(follower=u.id, followed=followed_id)
+            if created:
                 result['success'] = 1
-                result['message'] = 'Seguido'
-            except:
-                pass
+                result['message'] = 'Dejar de seguir'
+            else:
+                obj.delete()
     json = simplejson.dumps(result)
     return HttpResponse(json, mimetype='application/json')
 
