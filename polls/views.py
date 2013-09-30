@@ -2,19 +2,24 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from polls.models import Poll
 from django.utils import simplejson
-# Create your views here.
+
+# Dic Global para vistas
+context = {'title': ''}
 
 
 def index(request):
     latest_poll_list = Poll.objects.order_by('-pub_date')[:5]
-    context = {'latest_poll_list': latest_poll_list}
+    context['latest_poll_list'] = latest_poll_list
+    context['title'] = 'Bienvenido a sistema de encstas'
     return render(request, 'index.html', context)
 
 
 def detail(request, poll_id):
     if request.user.is_authenticated():
         p = get_object_or_404(Poll, pk=poll_id)
-        return render(request, 'polls/detail.html', {'poll': p})
+        context['title'] = 'Detalles de la encuesta'
+        context['poll'] = p
+        return render(request, 'polls/detail.html', context)
     else:
         return redirect('/')
 
@@ -22,7 +27,8 @@ def detail(request, poll_id):
 def results(request, poll_id):
     if request.user.is_authenticated():
         p = get_object_or_404(Poll, pk=poll_id)
-        context = {'poll': p}
+        context['title'] = 'Resultados de la encuesta'
+        context['poll'] = p
         return render(request, 'polls/result.html', context)
     else:
         return redirect('/')

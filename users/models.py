@@ -1,9 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Friendship(models.Model):
     def __unicode__(self):
-        return self.follower.username
+    	u = User.objects.get(pk=self.follower)
+        return u.username
 
     follower = models.IntegerField(max_length=11)
     followed = models.IntegerField(max_length=11)

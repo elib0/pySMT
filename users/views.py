@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.utils import simplejson
 from users.models import Friendship
 
+# Dic Global para vistas
+context = {'title': ''}
+
 
 def register(request):
     if request.is_ajax() and request.method == 'POST':
@@ -21,7 +24,8 @@ def register(request):
         json = simplejson.dumps(result)
         return HttpResponse(json, mimetype='application/json')
     else:
-        return render(request, 'users/register.html')
+        context['title'] = 'Registrar usuario'
+        return render(request, 'users/register.html', context)
 
 
 def profile(request, user_id):
@@ -59,7 +63,7 @@ def profile(request, user_id):
         return redirect('/')
 
 
-def follow_user(request, followed_id):
+def follow_or_unfollow(request, followed_id):
     result = {'success': -1, 'message': 'Seguir'}
     if request.user.is_authenticated():
         if request.is_ajax() and request.method == "POST":
