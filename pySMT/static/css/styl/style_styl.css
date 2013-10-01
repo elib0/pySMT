@@ -15,9 +15,11 @@ label{min-width:5.5em;display:inline-block}
 .system-message{background-color:#3b5998;border-bottom:solid 1px #1d2b49;-webkit-box-shadow:0 1px 2px #6c89c6;box-shadow:0 1px 2px #6c89c6;height:2em;padding:.5em;color:#fff}
 .welcome-message span{font-weight:bold}
 .welcome-message span a,.welcome-message span a:hover,.welcome-message span a:visited,.welcome-message span a:active{color:#fff;font-weight:bold}
-.content{zoom:1;max-width:1000px;float:none !important;display:block;margin-right:auto !important;margin-left:auto !important;*margin-right:auto !important;*margin-left:auto !important}
+.content{zoom:1;max-width:1000px;float:none !important;display:block;margin-right:auto !important;margin-left:auto !important;*margin-right:auto !important;*margin-left:auto !important;border:1px solid #ccc;border-top:none;min-height:500px;}
 .content:before,.content:after{content:"";display:table}
 .content:after{clear:both}
+.content h1{text-align:center}
+.home h3{text-align:center}
 .poll-result ul{list-style:none;}
 .poll-result ul li{width:30%;}
 .poll-result ul li span{display:block}
@@ -25,10 +27,15 @@ label{min-width:5.5em;display:inline-block}
 .poll-result ul li span.bar2{background-color:#ff0080}
 .poll-result ul li span.bar3{background-color:#0f0}
 .poll-result ul li span.bar4{background-color:#ff8000}
-.profile aside,.profile article{zoom:1;float:left;width:48%;margin-left:1%;margin-right:1%;}
+.profile aside,.profile article{zoom:1;float:left;width:48%;margin-left:1%;margin-right:1%}
 .profile aside:before,.profile article:before,.profile aside:after,.profile article:after{content:"";display:table}
 .profile aside:after,.profile article:after{clear:both}
-.profile aside h6,.profile article h6{margin:0}
+.profile aside{border-left:1px solid #ccc;}
+.profile aside hr{border:1px solid #ccc;border-bottom:none}
+.profile aside h6{margin:0 1em}
+.external-profile article{zoom:1;float:left;width:31.33333333333333%;margin-left:1%;margin-right:1%}
+.external-profile article:before,.external-profile article:after{content:"";display:table}
+.external-profile article:after{clear:both}
 footer{zoom:1;max-width:1000px;float:none !important;display:block;margin-right:auto !important;margin-left:auto !important;*margin-right:auto !important;*margin-left:auto !important;}
 footer:before,footer:after{content:"";display:table}
 footer:after{clear:both}
