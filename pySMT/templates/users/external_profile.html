@@ -1,17 +1,19 @@
 {% extends "users/profile.html" %}
 
 {% block content %}
-	<section class="profile">
+	<section class="external-profile">
 		{% if user_external %}
-		<h1>Perfil de:{{ user_external.username }}</h1>
-		<form id="frmFollow" action="{% url 'users:follow' user_external.id %}" method="POST">
-			{% csrf_token %}
-			<input type="submit" value="{{ follow_status }}">
-		</form>
-		<label>Nombre:</label>{{ user_external.first_name }}<br>
-		<label>Apellido:</label>{{ user_external.last_name }}<br>
-		<label>Correo:</label>{{ user_external.email }}<br>
-		<input type="button" id="btnVolver" name="btnVolver" value="Volver">
+		<article>
+			<h1>Perfil de:{{ user_external.username }}</h1>
+			<form id="frmFollow" action="{% url 'users:follow' user_external.id %}" method="POST">
+				{% csrf_token %}
+				<input type="submit" value="{{ follow_status }}">
+			</form>
+			<label>Nombre:</label>{{ user_external.first_name }}<br>
+			<label>Apellido:</label>{{ user_external.last_name }}<br>
+			<label>Correo:</label>{{ user_external.email }}<br>
+			<input type="button" id="btnVolver" name="btnVolver" value="Volver">
+		</article>
 		{% endif %}
 	</section>
 {% endblock content %}

@@ -5,9 +5,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.utils import simplejson
 from users.models import Friendship
 
-# Dic Global para vistas
-context = {'title': ''}
-
 
 def register(request):
     if request.is_ajax() and request.method == 'POST':
@@ -24,8 +21,8 @@ def register(request):
         json = simplejson.dumps(result)
         return HttpResponse(json, mimetype='application/json')
     else:
-        context['title'] = 'Registrar usuario'
-        return render(request, 'users/register.html', context)
+        view_title = 'Registrar usuario'
+        return render(request, 'users/register.html', {'title': view_title})
 
 
 def profile(request, user_id):
@@ -49,15 +46,17 @@ def profile(request, user_id):
         else:
             u = request.user
             if u.pk == int(user_id):
-                return render(request, 'users/profile.html', {'user': u})
+                view_title = 'Tu perfil'
+                return render(request, 'users/profile.html', {'user': u, 'title': view_title})
             else:
-                userexternal = get_object_or_404(User, pk=user_id)
+                ue = get_object_or_404(User, pk=user_id)
                 f = Friendship.objects.filter(follower=u.pk, followed=user_id)[:1]
                 if f:
                     f = 'Dejar de seguir'
                 else:
                     f = 'Seguir'
-                context = {'user': u, 'user_external': userexternal, 'follow_status': f}
+                view_title = 'Perfil de: '+str(ue.username)
+                context = {'title': view_title,'user': u, 'user_external': ue, 'follow_status': f}
                 return render(request, 'users/external_profile.html', context)
     else:
         return redirect('/')
@@ -68,12 +67,13 @@ def follow_or_unfollow(request, followed_id):
     if request.user.is_authenticated():
         if request.is_ajax() and request.method == "POST":
             u = request.user
-            obj, created = Friendship.objects.get_or_create(follower=u.id, followed=followed_id)
+            ue = User.objects.get(pk=followed_id)
+            followed, created = Friendship.objects.get_or_create(follower=u, followed=ue)
             if created:
                 result['success'] = 1
                 result['message'] = 'Dejar de seguir'
             else:
-                obj.delete()
+                followed.delete()
     json = simplejson.dumps(result)
     return HttpResponse(json, mimetype='application/json')
 

@@ -3,7 +3,7 @@
 {% block content %}
 	<section class="profile">
 		{% if user %}
-		<h1>Tu perfil:</h1>
+		<h1>Tu perfil</h1>
 		<article>
 			<form id="frmPerfil" action="{% url 'users:profile' user.id %}" method="POST">{% csrf_token %}
 				<label for="username">Apodo:</label><input type="text" name="username" id="username" value="{{ user.username }}" disabled="true"><br> 
@@ -15,10 +15,21 @@
 			</form>
 		</article>
 		<aside>
-			<h6>Seguidores:</h6>
+			<h6>Siguiendo a:</h6>
 			<ul>
-				{% if followers %}
-					
+				{% if user.follower_set.all %}
+					{% for fw in user.follower_set.all %}
+						<li><a href="{% url 'users:profile' fw.followed.pk %}">{{ fw.followed.username }}</a></li>
+					{% endfor %}
+				{% endif %}
+			</ul>
+			<hr>
+			<h6>Te sigue:</h6>
+			<ul>
+				{% if user.followed_set.all %}
+					{% for fw in user.followed_set.all %}
+						<li><a href="{% url 'users:profile' fw.follower.pk %}">{{ fw.follower.username }}</a></li>
+					{% endfor %}
 				{% endif %}
 			</ul>
 		</aside>
