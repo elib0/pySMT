@@ -5,6 +5,10 @@ max-center = 1000px
 
 color-base = #3B5998
 
+a, a:hover, a.active
+	color #000
+	text-decoration: none
+
 footer
 	margin: 1em 0 0 0;
 
@@ -12,16 +16,27 @@ label
 	min-width: 5.5em
 	display: inline-block
 
-.system-message
+.main-bar
 	background-color: color-base
 	border-bottom: solid 1px hsl(221, 44%, 20%)
 	box-shadow: 0 1px 2px hsl(221, 44%, 60%)
 	height 2em
 	padding 0.5em
 	color: #FFF
+	.main-menu
+		col(3,8) 
+		ul
+			list-style none
+			margin 0 1em
+			li
+				float left
+				span(1,3)
 
-.welcome-message span
-	font-weight: bold
+
+.welcome-message
+	col(1,8) 
+	span
+		font-weight: bold
 
 .welcome-message span
 	a, a:hover, a:visited, a:active
