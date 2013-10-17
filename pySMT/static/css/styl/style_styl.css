@@ -21,11 +21,14 @@ label{min-width:5.5em;display:inline-block}
 .main-bar .main-menu ul li{float:left;zoom:1;float:left;width:33.33333333333333%;margin-left:0;margin-right:0}
 .main-bar .main-menu ul li:before,.main-bar .main-menu ul li:after{content:"";display:table}
 .main-bar .main-menu ul li:after{clear:both}
-.welcome-message{zoom:1;float:left;width:10.5%;margin-left:1%;margin-right:1%;}
-.welcome-message:before,.welcome-message:after{content:"";display:table}
-.welcome-message:after{clear:both}
-.welcome-message span{font-weight:bold}
-.welcome-message span a,.welcome-message span a:hover,.welcome-message span a:visited,.welcome-message span a:active{color:#fff;font-weight:bold}
+.main-bar .welcome-message{zoom:1;float:left;width:14.666666666666664%;margin-left:1%;margin-right:1%;}
+.main-bar .welcome-message:before,.main-bar .welcome-message:after{content:"";display:table}
+.main-bar .welcome-message:after{clear:both}
+.main-bar .welcome-message span{font-weight:bold;}
+.main-bar .welcome-message span a,.main-bar .welcome-message span a:hover,.main-bar .welcome-message span a:visited,.main-bar .welcome-message span a:active{color:#fff;font-weight:inherit}
+.main-bar .main-menu{zoom:1;float:left;width:64.66666666666666%;margin-left:1%;margin-right:1%}
+.main-bar .main-menu:before,.main-bar .main-menu:after{content:"";display:table}
+.main-bar .main-menu:after{clear:both}
 .content{zoom:1;max-width:1000px;float:none !important;display:block;margin-right:auto !important;margin-left:auto !important;*margin-right:auto !important;*margin-left:auto !important;border:1px solid #ccc;border-top:none;min-height:500px;}
 .content:before,.content:after{content:"";display:table}
 .content:after{clear:both}
