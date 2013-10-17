@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.utils import simplejson
 from users.models import Friendship
+import users.forms as userform
 
 
 def register(request):
@@ -82,7 +83,7 @@ def loginuser(request):
     msj = ''
     if request.method == 'POST':
         post = request.POST
-        u = authenticate(username=post['name'], password=post['pass'])
+        u = authenticate(username=post['name'], password=post['password'])
         if u is not None:
             if u.is_active:
                 msj = 'Logueado correctamente'
@@ -95,7 +96,8 @@ def loginuser(request):
             msj = 'Usuario invalido'
             return redirect('users/login.html', {'msj': msj})
     else:
-        return render(request, 'users/login.html', {'msj': msj})
+        form = userform.LoginForm()
+        return render(request, 'users/login.html', {'msj': msj, 'loginform': form})
 
 
 def logoutuser(request):
