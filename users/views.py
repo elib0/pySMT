@@ -48,7 +48,8 @@ def profile(request, user_id):
             u = request.user
             if u.pk == int(user_id):
                 view_title = 'Tu perfil'
-                return render(request, 'users/profile.html', {'user': u, 'title': view_title})
+                return render(request, 'users/profile.html',
+                              {'user': u, 'title': view_title})
             else:
                 ue = get_object_or_404(User, pk=user_id)
                 f = Friendship.objects.filter(follower=u.pk, followed=user_id)[:1]
@@ -57,7 +58,8 @@ def profile(request, user_id):
                 else:
                     f = 'Seguir'
                 view_title = 'Perfil de: '+str(ue.username)
-                context = {'title': view_title,'user': u, 'user_external': ue, 'follow_status': f}
+                context = {'title': view_title, 'user': u,
+                           'user_external': ue, 'follow_status': f}
                 return render(request, 'users/external_profile.html', context)
     else:
         return redirect('/')
@@ -82,19 +84,21 @@ def follow_or_unfollow(request, followed_id):
 def loginuser(request):
     msj = ''
     if request.method == 'POST':
-        post = request.POST
-        u = authenticate(username=post['name'], password=post['password'])
-        if u is not None:
-            if u.is_active:
-                msj = 'Logueado correctamente'
-                login(request, u)
+        form = userform.LoginForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            password = form.cleaned_data['password']
+            u = authenticate(username=name, password=password)
+            if u is not None:
+                if u.is_active:
+                    msj = 'Logueado correctamente'
+                    login(request, u)
+                else:
+                    msj = 'lo sentimos este usuario no se encuntra disponible'
+                return redirect('/')
             else:
-                msj = 'lo sentimos este usuario no se encuntra disponible'
-
-            return redirect('/')
-        else:
-            msj = 'Usuario invalido'
-            return redirect('users/login.html', {'msj': msj})
+                msj = 'Usuario invalido'
+                return redirect('users/login.html', {'msj': msj})
     else:
         form = userform.LoginForm()
         return render(request, 'users/login.html', {'msj': msj, 'loginform': form})
