@@ -101,7 +101,7 @@ def loginuser(request):
                 return redirect('users/login.html', {'msj': msj})
     else:
         form = userform.LoginForm()
-        return render(request, 'users/login.html', {'msj': msj, 'loginform': form})
+    return render(request, 'users/login.html', {'msj': msj, 'loginform': form})
 
 
 def logoutuser(request):
