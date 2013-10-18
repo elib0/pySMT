@@ -10,20 +10,25 @@ import users.forms as userform
 def register(request):
     if request.is_ajax() and request.method == 'POST':
         result = {'success': -1, 'message': 'Error desconocido'}
-        p = request.POST
-        u = User.objects.create_user(p['name'], p['email'], p['pass'])
-        try:
-            u.save()
-            result['success'] = 1
-            result['message'] = 'Usuario registrado'
-        except:
-            result['success'] = 0
-            result['message'] = 'Usuario no registrado'
-        json = simplejson.dumps(result)
-        return HttpResponse(json, mimetype='application/json')
+        form = userform.RegisterForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            u = User.objects.create_user(name, email, password)
+            try:
+                u.save()
+                result['success'] = 1
+                result['message'] = 'Usuario registrado'
+            except:
+                result['success'] = 0
+                result['message'] = 'Usuario no registrado'
+            json = simplejson.dumps(result)
+            return HttpResponse(json, mimetype='application/json')
     else:
-        view_title = 'Registrar usuario'
-        return render(request, 'users/register.html', {'title': view_title})
+        form = userform.RegisterForm()
+        title = 'Registrar usuario'
+    return render(request, 'users/register.html', {'title': title, 'registerform': form})
 
 
 def profile(request, user_id):

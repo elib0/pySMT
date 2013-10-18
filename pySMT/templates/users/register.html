@@ -11,9 +11,7 @@
 		<h1>Registro de nuevo usuario</h1>
 		<form action="{% url 'users:register' %}" id="frmRegister" method="POST">
 		{% csrf_token %}
-			<label for="name">Nombre:</label><input type="text" name="name" id="name" required="true"><br>
-			<label for="email">Correo:</label><input type="email" name="email" id="email" required="true"><br>
-			<label for="pass">Contraseña:</label><input type="password" name="pass" id="pass" required="true"><br>
+			{{ registerform.as_p }}
 			<input type="submit" value="Registrar">
 			<input type="reset" value="Borrar">
 			<input id="btnCancelar" type="button" value="Cancelar">
