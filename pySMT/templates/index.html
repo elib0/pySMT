@@ -44,7 +44,7 @@
             <section class="home">
             {% if user.is_authenticated %}
                 {% if latest_poll_list %}
-                    <h1>Hacer una de nuestras encuestas</h1>
+                    <h1>Votar en una de nuestras encuestas</h1>
                     <ul>
                     {% for poll in latest_poll_list %}
                         <li><a href="{% url 'polls:detail' poll.id %}">{{ poll.question }}</a> - Votos({{ poll.get_vote_count }})</li>
