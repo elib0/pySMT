@@ -18,3 +18,13 @@ class RegisterForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(),
                                label='Contrasena',
                                max_length=30, min_length=6)
+    repassword = forms.CharField(widget=forms.PasswordInput(),
+                                 label='Repite Contrasena',
+                                 max_length=30, min_length=6)
+
+    def clean(self):
+        cleaned_data = super(ContactForm, self).clean()
+        password = cleaned_data.get('password')
+        repassword = cleaned_data.get('repassword')
+        if password != repassword:
+            pass

@@ -9,8 +9,7 @@
 {% block content %}
 	<section class="register">
 		<h1>Registro de nuevo usuario</h1>
-		<form action="{% url 'users:register' %}" id="frmRegister" method="POST">
-		{% csrf_token %}
+		<form action="{% url 'users:register' %}" id="frmRegister" method="POST">{% csrf_token %}
 			{{ registerform.as_p }}
 			<input type="submit" value="Registrar">
 			<input type="reset" value="Borrar">
