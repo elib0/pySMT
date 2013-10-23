@@ -23,8 +23,9 @@ class RegisterForm(forms.Form):
                                  max_length=30, min_length=6)
 
     def clean(self):
-        cleaned_data = super(ContactForm, self).clean()
+        cleaned_data = super(RegisterForm, self).clean()
         password = cleaned_data.get('password')
         repassword = cleaned_data.get('repassword')
         if password != repassword:
-            pass
+            raise forms.ValidationError("Las contrasenas no son iguales")
+        return cleaned_data
